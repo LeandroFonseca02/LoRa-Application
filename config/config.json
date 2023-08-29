@@ -1,0 +1,7 @@
+{
+  "database": {
+    "SQLALCHEMY_DATABASE_URI": "postgresql://postgres:postgres@localhost:5432/lora",
+    "SQLALCHEMY_TRACK_MODIFICATIONS": false
+  },
+  "SECRET_KEY": "secret"
+}
