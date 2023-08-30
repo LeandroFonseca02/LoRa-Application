@@ -29,7 +29,22 @@ with app.app_context():
 def index_template():
     #return "LoRa APP Running"
 
-    return render_template('index.html', page='Dashboard')
+    return render_template('index.html')
+
+@app.route('/devices')
+# @login_required
+def device_template():
+    #return "LoRa APP Running"
+
+    return render_template('devices.html')
+
+@app.route('/packets')
+# @login_required
+def packet_template():
+    #return "LoRa APP Running"
+
+    return render_template('packets.html')
+
 
 
 app.register_blueprint(devices)
