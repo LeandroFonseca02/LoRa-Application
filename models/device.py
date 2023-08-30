@@ -58,8 +58,6 @@ class Device(db.Model):
             Device.create_device_status(device.get_device_id())
 
 
-        return device
-
 
     @staticmethod
     def delete_device(id):
@@ -83,6 +81,6 @@ class Device(db.Model):
 
     @staticmethod
     def create_device_status(device_id):
-        status = Status(device_id=device_id, status=False)
+        status = Status(device_id=device_id)
         db.session.add(status)
         db.session.commit()
