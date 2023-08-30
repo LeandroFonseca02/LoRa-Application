@@ -2,29 +2,16 @@ function sendUploadImage() {
     document.getElementById("photoForm").submit();
 }
 
-// function update_status(device_id) {
-//     console.log("boas")
-//     fetch('/status_update/'+device_id, {
-//             method:"GET",
-//     }).then(response => {
-//         document.location.reload();
-//         return response.text();
-//     });
-// }
-
 function update_status(device_id) {
-const xhr = new XMLHttpRequest();
-xhr.open("GET", '/status_update/'+device_id);
-xhr.send();
-xhr.responseType = "json";
-xhr.onload = () => {
-  if (xhr.readyState == 4 && xhr.status == 200) {
-    console.log(xhr.response);
-  } else {
-    console.log(`Error: ${xhr.status}`);
-  }
-};
+    console.log("boas")
+    fetch('/status/update/'+device_id, {
+            method:"GET",
+    }).then(response => {
+        document.location.reload();
+        return response.text();
+    });
 }
+
 
 function getVehicles() {
     carWrapper = document.getElementById("carManagerWrapper");
