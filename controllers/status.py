@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify
-
 from models.device import Device
 from models.status import Status
 
