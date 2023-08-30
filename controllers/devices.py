@@ -7,8 +7,7 @@ devices = Blueprint('devices', __name__, template_folder='templates')
 
 @devices.route('/devices/AGPS')
 def devices_agps():
-    app_id=Application.get_appid_by_name("GPS Tracker")
-    all_devices = Device.get_all_devices_by_app_id(app_id)
+    all_devices = Device.get_all_devices_status()
     return render_template('devices.html', devices=all_devices, app="agps")
 
 @devices.route('/devices/WT')

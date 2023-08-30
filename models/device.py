@@ -33,9 +33,10 @@ class Device(db.Model):
         return db.session.query(Device).all()
 
     @staticmethod
-    def get_all_devices_status(app_id):
-        query = text("""SELECT id, deveui, board, app_id, s.status as status, device.created_at as created_at, device.updated_at as updated_at
-                        FROM device right outer join public.status s on device.id = s.device_id""")
+    def get_all_devices_status():
+        query = text("""SELECT id, deveui, board, app_id, s.status, d.created_at as created_at, d.updated_at as updated_at
+                        FROM device d, status s
+                        WHERE d.id = s.device_id""")
 
         return db.session.execute(query).all()
 
