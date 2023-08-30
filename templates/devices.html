@@ -17,6 +17,9 @@
                             <th class="d-none d-xl-table-cell">devEUI</th>
                             <th class="d-none d-xl-table-cell">Board Name</th>
                             <th class="d-none d-xl-table-cell">App Id</th>
+                            {% if app=="agps" %}
+                                <th class="d-none d-xl-table-cell">Status</th>
+                            {% endif %}
                             <th class="d-none d-xl-table-cell">created_at</th>
                             <th class="d-none d-xl-table-cell">updated_at</th>
                         </tr>
@@ -24,14 +27,15 @@
                         <tbody>
                         {% for device in devices %}
                         <tr>
-                            <td>{{ dispositivo.id }}</td>
-                            <td class="d-none d-xl-table-cell">{device.devEUI}</td>
-                            <td class="d-none d-xl-table-cell">{device.board_name}</td>
-                            <td class="d-none d-xl-table-cell">{device.app_id}</td>
-                            <td class="d-none d-xl-table-cell">{device.created_at}</td>
-                            <td class="d-none d-xl-table-cell">{device.updated_at}</td>
-                            <td class="d-none d-xl-table-cell">{device.}</td>
-                            <td class="d-none d-xl-table-cell">{}</td>
+                            <td>{{ device.id }}</td>
+                            <td class="d-none d-xl-table-cell">{{ device.deveui }}</td>
+                            <td class="d-none d-xl-table-cell">{{ device.board }}</td>
+                            <td class="d-none d-xl-table-cell">{{ device.app_id }}</td>
+                            {% if app=="agps" %}
+                                <td class="d-none d-xl-table-cell">{{ device.status }}</td>
+                            {% endif %}
+                            <td class="d-none d-xl-table-cell">{{ device.created_at }}</td>
+                            <td class="d-none d-xl-table-cell">{{ device.updated_at }}</td>
                             <td class="d-none d-md-table-cell">
                                 <a href="" class="btn btn-primary" name="{}" onclick="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

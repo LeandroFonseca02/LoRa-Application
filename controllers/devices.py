@@ -1,11 +1,17 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, render_template
 
+from models.application import Application
 from models.device import Device
 
 devices = Blueprint('devices', __name__, template_folder='templates')
 
-@devices.route('/devices')
-def devices_template():
-    all_devices = Device.get_all_devicess()
-    return jsonify(all_devices)
+@devices.route('/devices/AGPS')
+def devices_agps():
+    app_id=Application.get_appid_by_name("GPS Tracker")
+    all_devices = Device.get_all_devices_by_app_id(app_id)
+    return render_template('devices.html', devices=all_devices, app="agps")
 
+@devices.route('/devices/WT')
+def devices_wt():
+    all_devices = Device.get_all_devices_by_app_id(Application.get_appid_by_name("Water Tank"))
+    return render_template('devices.html', devices=all_devices, app="wt")

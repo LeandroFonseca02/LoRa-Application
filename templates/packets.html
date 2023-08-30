@@ -16,7 +16,6 @@
                             <th class="d-none d-xl-table-cell">Device Id</th>
                             <th class="d-none d-xl-table-cell">Type</th>
                             <th class="d-none d-xl-table-cell">Data</th>
-                            <th class="d-none d-xl-table-cell">Rssi</th>
                             <th class="d-none d-xl-table-cell">Created At</th>
                         </tr>
                         </thead>
@@ -24,11 +23,10 @@
                         {% for packet in packets %}
                         <tr>
                             <td>{{ packet.id }}</td>
-                            <td class="d-none d-xl-table-cell">{packet.device_id}</td>
-                            <td class="d-none d-xl-table-cell">{packet.type}</td>
-                            <td class="d-none d-xl-table-cell">{packet.data}</td>
-                            <td class="d-none d-xl-table-cell">{packet.rssi}</td>
-                            <td class="d-none d-xl-table-cell">{packet.create_at}</td>
+                            <td class="d-none d-xl-table-cell">{{ packet.device_id }}</td>
+                            <td class="d-none d-xl-table-cell">{{ packet.type }}</td>
+                            <td class="d-none d-xl-table-cell">{{ packet.data }}</td>
+                            <td class="d-none d-xl-table-cell">{{ packet.created_at }}</td>
                             <td class="d-none d-md-table-cell">
                                 <a href="" class="btn btn-primary" name="{}" onclick="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

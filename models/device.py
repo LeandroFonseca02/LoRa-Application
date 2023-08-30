@@ -1,5 +1,8 @@
 import datetime
 from dataclasses import dataclass
+
+from sqlalchemy import text
+
 from controllers.db import db
 from models.application import Application
 from models.status import Status
@@ -26,8 +29,19 @@ class Device(db.Model):
         return self.id
 
     @staticmethod
-    def get_all_devicess():
+    def get_all_devices():
         return db.session.query(Device).all()
+
+    @staticmethod
+    def get_all_devices_status(app_id):
+        query = text("""SELECT id, deveui, board, app_id, s.status as status, device.created_at as created_at, device.updated_at as updated_at
+                        FROM device right outer join public.status s on device.id = s.device_id""")
+
+        return db.session.execute(query).all()
+
+    @staticmethod
+    def get_all_devices_by_app_id(app_id):
+        return db.session.query(Device).filter(Device.app_id == app_id).all()
 
     @staticmethod
     def get_device_by_deveui(deveui):

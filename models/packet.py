@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 import datetime
 
+from sqlalchemy import text
+
 from controllers.db import db
 from models.device import Device
 
@@ -24,7 +26,16 @@ class Packet(db.Model):
 
     @staticmethod
     def get_all_packets_by_device_id(device_id):
-        return db.session.query(Packet).filter(Device.id == device_id).all()
+        return db.session.query(Packet).filter(Packet.device_id == device_id).all()
+
+    @staticmethod
+    def get_all_packets_by_app_id(app_id):
+        query = text("""SELECT packet.id as id, device_id, type, data, packet.created_at as created_at
+                FROM packet, device as d
+                WHERE packet.device_id = d.id
+                AND app_id =""" + str(app_id))
+
+        return db.session.execute(query).all()
 
     @staticmethod
     def get_all_packets():
