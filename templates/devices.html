@@ -8,7 +8,7 @@
                 <div class="card flex-fill">
                     <div class="card-header">
                         <h5 class="card-title mb-0">Devices</h5>
-                        <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#createProfileModal">Create Device</button>
+                        <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#createModal">Create Device</button>
                     </div>
                     <table class="table table-hover my-0">
                         <thead>
@@ -37,7 +37,7 @@
                             <td class="d-none d-xl-table-cell">{{ device.created_at }}</td>
                             <td class="d-none d-xl-table-cell">{{ device.updated_at }}</td>
                             <td class="d-none d-md-table-cell">
-                                <a href="" class="btn btn-primary" name="{}" onclick="">
+                                <a href="" class="btn btn-primary" name="{{ device.id }}" onclick="update_status(this.name)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                          stroke-linejoin="round" class="feather feather-edit align-middle">
@@ -65,4 +65,5 @@
         </div>
     </div>
 </main>
+
 {% endblock %}

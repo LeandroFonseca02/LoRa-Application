@@ -17,3 +17,8 @@ def get_device_status(devEUI):
     else:
         status = Status.get_device_status(device.get_device_id())
         return jsonify(status=status.status)
+
+@status.route('/status_update/<device_id>', methods=["GET"])
+def status_update(device_id):
+    Status.update_status(device_id)
+    return "status updated"
