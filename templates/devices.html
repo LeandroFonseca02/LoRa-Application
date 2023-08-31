@@ -8,7 +8,9 @@
                 <div class="card flex-fill">
                     <div class="card-header">
                         <h5 class="card-title mb-0">Devices</h5>
-                        <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#createModal">Create Device</button>
+                        <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#modalCreateDevice">Create
+                            Device
+                        </button>
                     </div>
                     <table class="table table-hover my-0">
                         <thead>
@@ -18,10 +20,10 @@
                             <th class="d-none d-xl-table-cell">Board Name</th>
                             <th class="d-none d-xl-table-cell">App Id</th>
                             {% if app=="agps" %}
-                                <th class="d-none d-xl-table-cell">Status</th>
+                            <th class="d-none d-xl-table-cell">Status</th>
                             {% endif %}
-                            <th class="d-none d-xl-table-cell">created_at</th>
-                            <th class="d-none d-xl-table-cell">updated_at</th>
+                            <th class="d-none d-xl-table-cell">Created At</th>
+                            <th class="d-none d-xl-table-cell">Updated At</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -32,12 +34,20 @@
                             <td class="d-none d-xl-table-cell">{{ device.board }}</td>
                             <td class="d-none d-xl-table-cell">{{ device.app_id }}</td>
                             {% if app=="agps" %}
-                                <td class="d-none d-xl-table-cell">{{ device.status }}</td>
+                                <td class="d-none d-xl-table-cell">
+                                    {% if device.status == true %}
+                                        <span class="badge bg-danger">Lost</span>
+                                    {% endif %}
+                                    {% if device.status == false %}
+                                        <span class="badge bg-success">Not Lost</span>
+                                    {% endif %}
+                                </td>
                             {% endif %}
                             <td class="d-none d-xl-table-cell">{{ device.created_at }}</td>
                             <td class="d-none d-xl-table-cell">{{ device.updated_at }}</td>
                             <td class="d-none d-md-table-cell">
-                                <a href="" class="btn btn-primary" name="{{ device.id }}" onclick="update_status(this.name)">
+                                <a href="" class="btn btn-primary" name="{{ device.id }}"
+                                   onclick="update_status(this.name)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                          stroke-linejoin="round" class="feather feather-edit align-middle">
@@ -62,6 +72,36 @@
                     </table>
                 </div>
             </div>
+            <div class="modal fade" id="modalCreateDevice" data-bs-keyboard="false" tabindex="-1"
+                     aria-labelledby="modalCreateDeviceLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalCreateDeviceLabel">Devices</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="row g-3" action="/createDevice/{{app_id}}" method="POST" id="createDeviceForm">
+                                    <div class="col-md-6">
+                                        {{form.deveui.label(class_='form-label')}}
+                                        {{form.deveui(class_='form-control input-shadow form-ismat', placeholder='devEUI')}}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{form.board.label(class_='form-label')}}
+                                        {{form.board(class_='form-control input-shadow form-ismat',
+                                        placeholder='Board Name')}}
+                                    </div>
+                                    <div class="col-12 d-grid">
+                                        <button type="submit" class="btn-ismat-large">
+                                            Create
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 </main>

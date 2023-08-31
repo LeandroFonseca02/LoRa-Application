@@ -24,7 +24,18 @@
                         <tr>
                             <td>{{ packet.id }}</td>
                             <td class="d-none d-xl-table-cell">{{ packet.device_id }}</td>
-                            <td class="d-none d-xl-table-cell">{{ packet.type }}</td>
+                            <td class="d-none d-xl-table-cell">
+                                {% if packet.type == "Water Tank" %}
+                                    <span class="badge bg-primary">{{packet.type}}</span>
+                                {% endif %}
+                                {% if packet.type == "GPS Tracker" %}
+                                    <span class="badge bg-success">{{packet.type}}</span>
+                                {% endif %}
+                                {% if packet.type == "Status Request" %}
+                                    <span class="badge bg-secondary">{{packet.type}}</span>
+                                {% endif %}
+
+                            </td>
                             <td class="d-none d-xl-table-cell">{{ packet.data }}</td>
                             <td class="d-none d-xl-table-cell">{{ packet.created_at }}</td>
                         </tr>
@@ -36,4 +47,9 @@
         </div>
     </div>
 </main>
+<script>
+    setTimeout(function(){
+   window.location.reload(1);
+}, 5000);
+</script>
 {% endblock %}

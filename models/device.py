@@ -36,7 +36,8 @@ class Device(db.Model):
     def get_all_devices_status():
         query = text("""SELECT id, deveui, board, app_id, s.status, d.created_at as created_at, d.updated_at as updated_at
                         FROM device d, status s
-                        WHERE d.id = s.device_id""")
+                        WHERE d.id = s.device_id
+                        ORDER BY id ASC""")
 
         return db.session.execute(query).all()
 
@@ -64,13 +65,13 @@ class Device(db.Model):
         db.session.commit()
 
     @staticmethod
-    def create_device(deveui, board, app_name):
-        device = Device(deveui=deveui, board=board, app_id=Application.get_appid_by_name(app_name))
+    def create_device(deveui, board, app_id):
+        device = Device(deveui=deveui, board=board, app_id=app_id)
         db.session.add(device)
         db.session.commit()
 
-        if device.get_device_app_id() == Application.get_appid_by_name("GPS Tracker"):
-            Device.create_device_status(device.get_device_id())
+        if int(app_id) == Application.get_appid_by_name("GPS Tracker"):
+            Device.create_device_status(device.id)
 
 
 
@@ -82,13 +83,6 @@ class Device(db.Model):
     def __str__(self):
         return self.deveui
 
-
-    # @staticmethod
-    # def add_role(user_id, role_id):
-    #     query = "INSERT INTO role_user VALUES (" + user_id + ", " + role_id + ")"
-    #     db.session.execute(query)
-    #     db.session.commit()
-
     @staticmethod
     def get_number_nodes():
         return len(db.session.query(Device).all())
@@ -98,4 +92,12 @@ class Device(db.Model):
     def create_device_status(device_id):
         status = Status(device_id=device_id)
         db.session.add(status)
+        db.session.commit()
+
+    @staticmethod
+    def update_device_status(device_id):
+        device = Device.get_device_by_id(device_id)
+        status = db.session.query(Status).filter(Status.device_id == int(device_id)).first()
+        status.status = not status.status
+        device.updated_at = datetime.datetime.now()
         db.session.commit()

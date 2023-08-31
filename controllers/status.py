@@ -20,5 +20,5 @@ def get_device_status(devEUI):
 
 @status.route('/status/update/<device_id>', methods=["GET"])
 def status_update(device_id):
-    Status.update_status(device_id)
+    Device.update_device_status(device_id)
     return "status updated"

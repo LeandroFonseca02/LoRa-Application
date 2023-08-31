@@ -20,12 +20,6 @@ class Status(db.Model):
     def get_all_status():
         return db.session.query(Status).all()
 
-    @staticmethod
-    def update_status(device_id):
-        status = db.session.query(Status).filter(Status.device_id == int(device_id)).first()
-        status.status = not status.status
-        db.session.commit()
-
 
     @staticmethod
     def get_device_status(device_id):

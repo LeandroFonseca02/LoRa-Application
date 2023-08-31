@@ -6,7 +6,7 @@ from models.device import Device
 
 packets = Blueprint('messages', __name__, template_folder='templates')
 
-@packets.route('/packets/AGPS')
+@packets.route('/packets/GPS')
 def packets_agps():
     all_packets = Packet.get_all_packets_by_app_id(Application.get_appid_by_name("GPS Tracker"))
     return render_template('packets.html', packets=all_packets, page="packetsgps")
