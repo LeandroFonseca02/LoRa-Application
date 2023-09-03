@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, render_template
+from flask import Flask, redirect
 
 from controllers.applications import applications
 from controllers.db import db
@@ -25,11 +25,8 @@ with app.app_context():
 
 
 @app.route('/')
-# @login_required
 def index_template():
-    #return "LoRa APP Running"
-
-    return render_template('index.html')
+    return redirect('/devices/WT')
 
 
 
@@ -37,11 +34,6 @@ app.register_blueprint(devices)
 app.register_blueprint(applications)
 app.register_blueprint(packets)
 app.register_blueprint(status)
-# app.register_blueprint(vehicles)
-# app.register_blueprint(rides)
-# app.register_blueprint(reservations)
-# app.register_blueprint(roles)
-# app.register_blueprint(ratings)
 
 
 if __name__ == '__main__':
